@@ -20,7 +20,4 @@ public class IpInfo {
     private String region;
     
     private String regionName;
-        
-    private String timeZone;
-    
 }
