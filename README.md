@@ -53,4 +53,4 @@ docker push scizeron/ipinfo
 
 ```sh
 docker service create --name ipinfo --replicas 1 --publish 8080:8080 scizeron/ipinfo
-``
+```
