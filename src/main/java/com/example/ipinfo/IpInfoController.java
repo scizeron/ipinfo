@@ -1,6 +1,5 @@
 package com.example.ipinfo;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @RestController
 public class IpInfoController {
     
@@ -26,9 +27,11 @@ public class IpInfoController {
     private static final Pattern PRIVATE_IP = Pattern.compile("(^127\\.)|(^10\\.)|(^172\\.1[6-9]\\.)|(^172\\.2[0-9]\\.)|(^172\\.3[0-1]\\.)|(^192\\.168\\.)");
     
     private static final Logger LOGGER = LoggerFactory.getLogger(IpInfoController.class);
+    
+    private ObjectMapper mapper = new ObjectMapper();
 
     @GetMapping("/")
-    public ResponseEntity<IpInfo> getInfo(HttpServletRequest request) {
+    public ResponseEntity<IpInfo> getInfo(HttpServletRequest request) throws Exception {
         String remoteAddr = request.getHeader("X-FORWARDED-FOR");
                    
         if (StringUtils.isEmpty(remoteAddr)) {
@@ -43,10 +46,9 @@ public class IpInfoController {
         
         if (PRIVATE_IP.matcher(remoteAddr).find()) {
             return handleBadRequest(String.format("%s is a private IP, impossible to get additional information", remoteAddr));
-        }
+        }        
         
-        
-        LOGGER.debug("Get additional info for {}", remoteAddr);
+        LOGGER.debug("Get additional info for \"{}\"", remoteAddr);
         
         ipInfo = this.restTemplate.exchange(String.format("%s/%s", this.baseRequestUri, remoteAddr), HttpMethod.GET, null, IpInfo.class).getBody();
         
@@ -54,8 +56,10 @@ public class IpInfoController {
             ipInfo.setIp(remoteAddr);
         }
         
-        LOGGER.debug("{}: {}", remoteAddr, ipInfo);
-                
+        if (LOGGER.isDebugEnabled() && ipInfo != null) {
+            LOGGER.debug("{}: {}", remoteAddr, new String(this.mapper.writeValueAsBytes(ipInfo), "UTF-8"));
+        }
+                        
         return ResponseEntity.ok(ipInfo);      
     }
 

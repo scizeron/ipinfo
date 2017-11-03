@@ -21,12 +21,18 @@ behind the GE proxy
 java -Djava.net.preferIPv4Stack=true -Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT -jar target/app.jar  
 ```
 
+To simulate a remote client (locally)
+
+```sh
+curl -H X-FORWARDED-FOR:$(curl -s icanhazip.com) http://localhost:8080
+```
+
 ## docker
 
 ### build
 
 ```sh
-docker build -f Dockerfile -t scizeron/ipinfo .
+docker build -t scizeron/ipinfo .
 ```
 
 ### run

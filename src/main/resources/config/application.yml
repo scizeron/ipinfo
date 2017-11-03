@@ -4,3 +4,11 @@
 logging:
  level:
   com.example: DEBUG
+
+management:
+ security:
+  enabled: false
+
+endpoints:
+ hypermedia:
+  enabled: true

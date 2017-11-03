@@ -1,10 +1,6 @@
 FROM anapsix/alpine-java
-
 MAINTAINER scizeron
-
-ADD target/app.jar /app.jar
-ADD docker/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
+ADD target/app.jar app.jar
+ENV JAVA_OPTS="-Xmx256m -Djava.security.egd=file:/dev/./urandom -Djava.net.preferIPv4Stack=true"
 EXPOSE 8080
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT exec java $JAVA_OPTS -jar /app.jar "$@"
