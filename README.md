@@ -39,7 +39,7 @@ docker run -d -p8080:8080 -e "JAVA_OPTS=-Djava.net.preferIPv4Stack=true -Dhttp.p
 
 ### push 
 
-Push the docker image on hub.docker.com
+Push the docker image on hub.docker.com (docker login)
 
 ```sh
 docker push scizeron/ipinfo

@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class IpInfo {
+    
+    private String message;
    
     private String ip;
     
