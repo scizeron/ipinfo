@@ -2,11 +2,14 @@ package com.example.ipinfo;
 
 import java.util.regex.Pattern;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
@@ -29,7 +33,26 @@ public class IpInfoController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IpInfoController.class);
     
     private ObjectMapper mapper = new ObjectMapper();
-
+    
+    private String nodeLocation;
+    
+    private String nodeName;
+    
+    @PostConstruct
+    public void init() {
+       try {
+           HttpHeaders httpHeaders = new HttpHeaders();
+           httpHeaders.add("Metadata", "true");
+           
+           ResponseEntity<JsonNode> exchange = new RestTemplate().exchange("http://169.254.169.254/metadata/instance/compute?api-version=2017-04-02", HttpMethod.GET, new HttpEntity<>(httpHeaders), JsonNode.class);
+           this.nodeLocation = exchange.getBody().get("location").asText();
+           this.nodeName = exchange.getBody().get("name").asText();     
+       } catch(Exception e) {
+           LOGGER.debug("Failed to get the cloud metadata instance");
+       }
+      }
+    
+    
     @GetMapping("/")
     public ResponseEntity<IpInfo> getInfo(HttpServletRequest request) throws Exception {
         String remoteAddr = request.getHeader("X-FORWARDED-FOR");
@@ -54,6 +77,8 @@ public class IpInfoController {
         
         if (ipInfo != null) {
             ipInfo.setIp(remoteAddr);
+            ipInfo.setNodeLocation(this.nodeLocation);
+            ipInfo.setNodeName(this.nodeName);
         }
         
         if (LOGGER.isDebugEnabled() && ipInfo != null) {

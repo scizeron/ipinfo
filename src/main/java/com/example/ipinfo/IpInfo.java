@@ -11,6 +11,10 @@ import lombok.Setter;
 public class IpInfo {
     
     private String message;
+    
+    private String nodeLocation;
+    
+    private String nodeName;
    
     private String ip;
     
