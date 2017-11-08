@@ -27,15 +27,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class IpInfoController {
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    private String baseRequestUri = "http://ip-api.com/json";
-
     private static final Pattern PRIVATE_IP = Pattern
             .compile("(^127\\.)|(^10\\.)|(^172\\.1[6-9]\\.)|(^172\\.2[0-9]\\.)|(^172\\.3[0-1]\\.)|(^192\\.168\\.)");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IpInfoController.class);
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    private String baseRequestUri = "http://ip-api.com/json";
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -50,9 +50,8 @@ public class IpInfoController {
             httpHeaders.add("Metadata", "true");                   
             
             RequestConfig.Builder requestBuilder = RequestConfig.custom();
-            requestBuilder = requestBuilder.setConnectTimeout(2000);
-            requestBuilder = requestBuilder.setConnectionRequestTimeout(2000);
-            requestBuilder = requestBuilder.setSocketTimeout(2000);
+            requestBuilder = requestBuilder.setConnectTimeout(1000);
+             requestBuilder = requestBuilder.setSocketTimeout(1000);
             
             HttpClientBuilder httpClientBuilder = HttpClients.custom();
             httpClientBuilder.setDefaultRequestConfig(requestBuilder.build());
@@ -61,10 +60,12 @@ public class IpInfoController {
                     new HttpComponentsClientHttpRequestFactory(httpClientBuilder.build())).exchange(
                     "http://169.254.169.254/metadata/instance/compute?api-version=2017-04-02", HttpMethod.GET,
                     new HttpEntity<>(httpHeaders), JsonNode.class);
+            
             this.nodeLocation = exchange.getBody().get("location").asText();
             this.nodeName = exchange.getBody().get("name").asText();
+        
         } catch (Exception e) {
-            LOGGER.debug("Failed to get the cloud metadata instance");
+            LOGGER.debug("Failed to get the cloud metadata instance: {}", e.getMessage());
         }
     }
     

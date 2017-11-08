@@ -22,5 +22,4 @@ public class IpInfoConfig {
         return new RestTemplate(
                 new HttpComponentsClientHttpRequestFactory(httpClientBuilder.build()));     
     }
-
 }
