@@ -4,7 +4,7 @@ sudo: false
 
 install: true
 script: 
- - ./mvn clean package
+ - mvn clean package
 
 cache:
  directories:
