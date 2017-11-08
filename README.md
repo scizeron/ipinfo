@@ -51,6 +51,8 @@ Push the docker image on hub.docker.com (docker login)
 docker push scizeron/ipinfo
 ```
 
+See all tags [here](https://hub.docker.com/r/scizeron/ipinfo/tags/).
+
 ![docker-image](docs/images/dockerImage.png)
 
 ## swarm
