@@ -92,29 +92,25 @@ public class IpInfoController {
         }
 
         if (remoteAddr.indexOf(",") > 0) {
+            // X-Forwarded-For: client, proxy1, proxy2
+            // where the value is a comma+space separated list of IP addresses, the left-most being the original client,
+            // each successive proxy that passed the request adding the IP address where it received the request from
             String[] remoteAddresses = StringUtils.split(remoteAddr, ",");
-            LOGGER.debug("The remoteAddr \"{}\"is a list of IPs. We are going to get the first public one.", remoteAddr);
-            
-            for (String remoteAddress : remoteAddresses) {
-                if (!isAPrivateIp(remoteAddress)) {
-                    remoteAddr = remoteAddress;             
-                    break;
-                }
+            if (remoteAddresses == null || remoteAddresses.length == 0) {
+                return handleBadRequest(String.format("Impossible to get additional information from \"%s\"", remoteAddr));
             }
             
-            if (remoteAddr.indexOf(",") > 0) {
-                return handleBadRequest(String.format("%s is a list of private IPs", remoteAddr));
-            }
-            
-        } else if (isAPrivateIp(remoteAddr)) {
+            LOGGER.debug("The remoteAddr \"{}\"is a list of IPs. We are going to get the first one : client, proxy1, proxy2, ...", remoteAddr);        
+            remoteAddr = remoteAddresses[0];                  
+        } 
+        
+        if (isAPrivateIp(remoteAddr)) {
            return handleBadRequest(String.format("%s is a private IP, impossible to get additional information", remoteAddr));     
         }
 
-        LOGGER.debug("Get additional info for \"{}\"", remoteAddr);
+        LOGGER.debug("Get additional info from \"{}\"", remoteAddr);
 
-        ipInfo = this.restTemplate
-                .exchange(String.format("%s/%s", this.baseRequestUri, remoteAddr), HttpMethod.GET, null, IpInfo.class)
-                .getBody();
+        ipInfo = this.restTemplate.exchange(String.format("%s/%s", this.baseRequestUri, remoteAddr), HttpMethod.GET, null, IpInfo.class).getBody();
 
         if (ipInfo != null) {
             ipInfo.setIp(remoteAddr);
