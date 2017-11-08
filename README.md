@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/scizeron/ipinfo.svg?branch=master)](https://travis-ci.org/scizeron/ipinfo)
+
 # ipinfo
 
 ## Table Of Contents
