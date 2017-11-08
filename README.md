@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/scizeron/ipinfo.svg?branch=master)](https://travis-ci.org/scizeron/ipinfo)
+[![Build Status](https://travis-ci.org/scizeron/ipinfo.svg?branch=master)](https://travis-ci.org/scizeron/ipinfo) [![codecov.io](https://codecov.io/github/scizeron/ipinfo.io/coverage.svg?branch=master)]
 
 # ipinfo
 
