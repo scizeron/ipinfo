@@ -15,9 +15,10 @@
 mvn clean install
 ```
 ---
+
 ## run locally 
 
-behind the GE proxy
+behind a corporate proxy
 
 ```sh
 java -Djava.net.preferIPv4Stack=true -Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT -jar target/app.jar  
@@ -39,7 +40,7 @@ docker build -t scizeron/ipinfo .
 
 ### run
 
-behind the GE proxy
+behind a corporate proxy
 
 ```sh
 docker run -d -p8080:8080 -e "JAVA_OPTS=-Djava.net.preferIPv4Stack=true -Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT" scizeron/ipinfo
