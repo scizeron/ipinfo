@@ -4,8 +4,10 @@ sudo: false
 
 install: true
 script: 
- - mvn clean package
- - bash <(curl -s https://codecov.io/bash)
+ - mvn clean package cobertura:cobertura
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
  
 cache:
  directories:
