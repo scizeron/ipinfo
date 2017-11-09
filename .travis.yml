@@ -7,12 +7,12 @@ services:
   
 script: 
  - mvn cobertura:cobertura -B
- - docker build -t scizeron/ipinfo .
+ - docker build -t scizeron/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec)  .
 
 after_success:
  - bash <(curl -s https://codecov.io/bash)
  - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
- - docker push ${DOCKER_USERNAME}/ipinfo
+ - docker push ${DOCKER_USERNAME}/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec)
 
 deploy:
  
