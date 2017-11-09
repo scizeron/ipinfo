@@ -1,13 +1,18 @@
 language: java
 jdk: oraclejdk8
-sudo: false
+sudo: required
 
-install: true
+services:
+ - docker
+  
 script: 
- - mvn clean package cobertura:cobertura
+ - mvn cobertura:cobertura -B
+ - docker build -t scizeron/ipinfo .
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+ - bash <(curl -s https://codecov.io/bash)
+
+deploy:
  
 cache:
  directories:
