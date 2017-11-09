@@ -8,13 +8,13 @@ services:
   
 script: 
  - mvn cobertura:cobertura -B
- - docker build --tag scizeron/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec):latest --tag scizeron/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec):v$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec) .
+ - docker build --tag ${DOCKER_REPOSITORY}/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec):latest --tag ${DOCKER_REPOSITORY}/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec):v$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec) .
 
 after_success:
  - bash <(curl -s https://codecov.io/bash)
  - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
- - docker push ${DOCKER_USERNAME}/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec):latest
- - docker push ${DOCKER_USERNAME}/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec):v$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
+ - docker push ${DOCKER_REPOSITORY}/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec):latest
+ - docker push ${DOCKER_REPOSITORY}/$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec):v$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
 
 deploy:
  
