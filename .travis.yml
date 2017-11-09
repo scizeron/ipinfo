@@ -11,7 +11,8 @@ script:
 
 after_success:
  - bash <(curl -s https://codecov.io/bash)
- - echo "TEST_VAR:$TEST_VAR"
+ - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+ - docker push ${DOCKER_USERNAME}/ipinfo
 
 deploy:
  
