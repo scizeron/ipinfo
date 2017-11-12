@@ -4,34 +4,34 @@
 # ipinfo
 
 ## Table Of Contents
-- [Build](#build)
-- [Run](#run-locally)
-- [Docker](#docker)
+- [Build](#Build)
+- [Run](#Run-locally)
+- [Docker](#Docker)
 
 ---
 
-## build
+## Build
 
 ```sh
 mvn clean install
 ```
 ---
 
-## run locally 
+## Run locally 
 
-behind a corporate proxy
+Behind a corporate proxy
 
 ```sh
 java -Djava.net.preferIPv4Stack=true -Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT -jar target/app.jar  
 ```
 
-To simulate a remote client (locally)
+To simulate a remote client, populate the http request header X-FORWARDED-FOR with a public IP.D
 
 ```sh
 curl -H X-FORWARDED-FOR:$(curl -s icanhazip.com) http://localhost:8080
 ```
 
-## docker
+## Docker
 
 ### build
 
