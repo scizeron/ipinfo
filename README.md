@@ -25,7 +25,7 @@ Behind a corporate proxy
 java -Djava.net.preferIPv4Stack=true -Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT -jar target/app.jar  
 ```
 
-To simulate a remote client, populate the http request header X-FORWARDED-FOR with a public IP.D
+To simulate a remote client, populate the http request header X-FORWARDED-FOR with a public IP.
 
 ```sh
 curl -H X-FORWARDED-FOR:$(curl -s icanhazip.com) http://localhost:8080
