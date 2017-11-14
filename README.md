@@ -3,23 +3,31 @@
 
 Table of contents
 =================
-- [Build](#Build)
-- [Run](#Run-locally)
-- [Docker](#Docker)
-- [Live demo](#Live-demo)
+  * [Java](#Java)
+    * [Build](#Build)
+    * [Run](#Run)
+  * [Docker](#Docker)
+    * [Build](#Build)
+    * [Run](#Run)
+    * [Push](#Push)
+    * [Swarm](#Swarm)   
+  * [Live demo](#Live-demo)
 
 ---
 
+Java
+====
+
 Build
-=====
+-----
 
 ```sh
 mvn clean install
 ```
 ---
 
-Run locally
-===========
+Run
+---
 
 Behind a corporate proxy
 
@@ -64,6 +72,7 @@ docker push scizeron/ipinfo
 See all tags [here](https://hub.docker.com/r/scizeron/ipinfo/tags/).
 
 ![docker-image](docs/images/dockerImage.png)
+
 
 Swarm
 -----
