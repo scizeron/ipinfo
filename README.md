@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/scizeron/ipinfo.svg?branch=master)](https://travis-ci.org/scizeron/ipinfo)
 [![Code Coverage](https://img.shields.io/codecov/c/github/scizeron/ipinfo/master.svg)](https://codecov.io/github/scizeron/ipinfo?branch=master)
 
+---
+
 ## Table of Contents
 
 - [Java](#java)
