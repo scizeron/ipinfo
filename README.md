@@ -1,9 +1,8 @@
 [![Build Status](https://travis-ci.org/scizeron/ipinfo.svg?branch=master)](https://travis-ci.org/scizeron/ipinfo)
 [![Code Coverage](https://img.shields.io/codecov/c/github/scizeron/ipinfo/master.svg)](https://codecov.io/github/scizeron/ipinfo?branch=master)
 
-# ipinfo
-
-## Table Of Contents
+Table of contents
+=================
 - [Build](#Build)
 - [Run](#Run-locally)
 - [Docker](#Docker)
@@ -11,14 +10,16 @@
 
 ---
 
-## Build
+Build
+=====
 
 ```sh
 mvn clean install
 ```
 ---
 
-## Run locally 
+Run locally
+===========
 
 Behind a corporate proxy
 
@@ -32,15 +33,18 @@ To simulate a remote client, populate the http request header X-FORWARDED-FOR wi
 curl -H X-FORWARDED-FOR:$(curl -s icanhazip.com) http://localhost:8080
 ```
 
-## Docker
+Docker
+======
 
-### build
+Build
+-----
 
 ```sh
 docker build -t scizeron/ipinfo .
 ```
 
-### run
+Run
+---
 
 behind a corporate proxy
 
@@ -48,7 +52,8 @@ behind a corporate proxy
 docker run -d -p8080:8080 -e "JAVA_OPTS=-Djava.net.preferIPv4Stack=true -Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT" scizeron/ipinfo
 ```
 
-### push 
+Push
+----
 
 Push the docker image on hub.docker.com (docker login)
 
@@ -60,14 +65,14 @@ See all tags [here](https://hub.docker.com/r/scizeron/ipinfo/tags/).
 
 ![docker-image](docs/images/dockerImage.png)
 
-## swarm
-
-### service
+Swarm
+-----
 
 ```sh
 docker service create --name ipinfo --replicas 1 --publish 8080:8080 scizeron/ipinfo
 ```
 
-## Live demo
+Live demo
+=========
 
 [here](https://azure-api.scizeron-dev.com/v2/ipinfo)
