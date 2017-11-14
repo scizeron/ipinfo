@@ -3,15 +3,15 @@
 
 ## Table of Contents
 
-- [Java](#Java)
+- [Java](#java)
   * [Build]
   * [Run]
-- [Docker](#Docker)
+- [Docker](#docker)
   * [Build]
   * [Run]
   * [Push]
   * [Swarm]   
-- [Demo](#Demo)
+- [Demo](#demo)
 
 ---
 
