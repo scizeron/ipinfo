@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/scizeron/ipinfo.svg?branch=master)](https://travis-ci.org/scizeron/ipinfo)
 [![Code Coverage](https://img.shields.io/codecov/c/github/scizeron/ipinfo/master.svg)](https://codecov.io/github/scizeron/ipinfo?branch=master)
+
 ---
 
 ## Table of Contents
@@ -13,15 +14,16 @@
   * Push
   * Swarm   
 - [Demo](#demo)
+
 ---
 
 ## Java
+
 ### Build
 
 ```sh
 mvn clean install
 ```
----
 
 ### Run
 
@@ -36,6 +38,8 @@ To simulate a remote client, populate the http request header X-FORWARDED-FOR wi
 ```sh
 curl -H X-FORWARDED-FOR:$(curl -s icanhazip.com) http://localhost:8080
 ```
+
+---
 
 ## Docker
 
@@ -70,6 +74,8 @@ See all tags [here](https://hub.docker.com/r/scizeron/ipinfo/tags/).
 ```sh
 docker service create --name ipinfo --replicas 1 --publish 8080:8080 scizeron/ipinfo
 ```
+
+---
 
 ## Demo
 
