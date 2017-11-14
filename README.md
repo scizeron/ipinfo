@@ -7,6 +7,7 @@
 - [Build](#Build)
 - [Run](#Run-locally)
 - [Docker](#Docker)
+- [Live demo](#Live-demo)
 
 ---
 
@@ -66,3 +67,7 @@ See all tags [here](https://hub.docker.com/r/scizeron/ipinfo/tags/).
 ```sh
 docker service create --name ipinfo --replicas 1 --publish 8080:8080 scizeron/ipinfo
 ```
+
+## Live demo
+
+[here](https://azure-api.scizeron-dev.com/v2/ipinfo)
