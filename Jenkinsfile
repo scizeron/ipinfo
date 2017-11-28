@@ -9,12 +9,10 @@ pipeline {
              echo " - BUILD_ID     : ${env.BUILD_ID}"
             }
         }
-    }
-
-    stages {
         stage('Build') {
             steps {
                 withMaven(
+                    jdk : "1.8.0"
                     maven: "3.5.0",
                     mavenSettingsFilePath: "${user.home}/.m2/settings.xml",
                     mavenLocalRepo: "${user.home}/.m2/repository" ) {
