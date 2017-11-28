@@ -10,10 +10,14 @@ pipeline {
             }
         }
         stage('Build') {
-         sh 'mvn -B -Dmaven.test.skip=true clean package'
+            steps {
+                sh 'mvn -B -Dmaven.test.skip=true clean package'
+            }
         }
         stage('Test') {
-         sh 'mvn -B test'
+            steps {
+                sh 'mvn -B test'
+            }
         }
     }
 }
