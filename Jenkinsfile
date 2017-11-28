@@ -11,13 +11,14 @@ pipeline {
         }
     }
 
-    withMaven(
-        maven: "3.5.0",
-        mavenSettingsFilePath: "${user.home}/.m2/settings.xml",
-        mavenLocalRepo: "${user.home}/.m2/repository" ) {
-        stages {
-            stage('Build') {
-                steps {
+    stages {
+        stage('Build') {
+            steps {
+                withMaven(
+                    maven: "3.5.0",
+                    mavenSettingsFilePath: "${user.home}/.m2/settings.xml",
+                    mavenLocalRepo: "${user.home}/.m2/repository" ) {
+                
                     sh 'mvn -B -Dmaven.test.skip=true clean package'
                 }
             }
