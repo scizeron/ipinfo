@@ -9,5 +9,11 @@ pipeline {
              echo " - BUILD_ID     : ${env.BUILD_ID}"
             }
         }
+        stage('Build') {
+         sh 'mvn -B -Dmaven.test.skip=true clean package'
+        }
+        stage('Test') {
+         sh 'mvn -B test'
+        }
     }
 }
