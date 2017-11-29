@@ -1,4 +1,6 @@
 node {
+
+    checkout scm
     
     withMaven(jdk: '1.8.0'
                 , maven: '3.5.0'
