@@ -76,9 +76,4 @@ See all tags [here](https://hub.docker.com/r/scizeron/ipinfo/tags/).
 ```sh
 docker service create --name ipinfo --replicas 1 --publish 8080:8080 scizeron/ipinfo
 ```
-
----
-
-## Demo
-
-[Here](https://azure-api.scizeron-dev.com/v2/ipinfo)
+	
